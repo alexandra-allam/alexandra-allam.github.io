@@ -251,6 +251,18 @@ footer.site { padding-block: 28px 0; border-top: 1px solid var(--line); color: v
     </div>
     <ul class="index">
       <li>
+        <a href="#scam-checker">
+          <div class="index-text">
+            <h3>Scam message checker</h3>
+            <p>Paste in a suspicious text or email and get the warning signs in plain English, plus what to do next. Tested on 45 synthetic messages with 0 missed scams. Live demo.</p>
+          </div>
+          <span class="go">Case study ↓</span>
+          <div class="meta">
+            <span class="pill">Python</span><span class="pill">Claude API</span><span class="pill">Tech for good</span><span class="pill">AI evaluation</span><span class="pill">Nov 2026</span>
+          </div>
+        </a>
+      </li>
+      <li>
         <a href="#clinic-triage">
           <div class="index-text">
             <h3>Clinic enquiry triage</h3>
@@ -566,6 +578,148 @@ footer.site { padding-block: 28px 0; border-top: 1px solid var(--line); color: v
           <li>Tighten the drafting prompt: answer only what was asked, and never confirm availability.</li>
           <li>Add a data retention rule so enquiries are deleted after a set period.</li>
           <li>Connect a real booking calendar so drafts can offer actual appointment times.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="scam-checker" aria-labelledby="cs3-title">
+    <div class="case-head">
+      <span class="label">Case study 03</span>
+      <h2 id="cs3-title">Scam message checker</h2>
+      <dl class="facts">
+        <div><dt class="label">Type</dt><dd>Personal project, tech for good</dd></div>
+        <div><dt class="label">Tools</dt><dd>Python, Claude Haiku 5.5, Streamlit, Claude Code</dd></div>
+        <div><dt class="label">Timeline</dt><dd>Nov 2026</dd></div>
+        <div><dt class="label">Status</dt><dd>Live demo, tested on 45 synthetic messages</dd></div>
+      </dl>
+      <div class="contact-row">
+        <a class="btn-link" href="https://scam-message-checker-hwkaxmzneyhih9qww6ujht.streamlit.app/" target="_blank" rel="noopener">Try the live demo ↗</a>
+        <a class="btn-link" href="https://github.com/alexandra-allam/scam-message-checker" target="_blank" rel="noopener">View the code on GitHub ↗</a>
+      </div>
+    </div>
+
+    <div class="block">
+      <span class="label">The problem</span>
+      <div class="block-body">
+        <p>Scam texts and emails now copy real organisations closely: Royal Mail, HMRC, banks, even your own children ("Hi Mum, I've got a new number"). Older people are targeted most, and the usual advice of "if in doubt, don't click" doesn't help someone decide about the message in front of them.</p>
+        <p>I wanted a free tool that gives a careful second opinion in plain English: paste in a message, see the warning signs, and know what to do next. It should never tell anyone a message is safe.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <span class="label">How it works</span>
+      <div class="block-body">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Part of the answer</th><th>Written by</th></tr></thead>
+            <tbody>
+              <tr><td>Verdict: <span class="pill no">Likely scam</span> <span class="pill hot">Be careful</span> or <span class="pill">No strong warning signs</span></td><td>AI, from a fixed list</td></tr>
+              <tr><td>Up to 3 warning signs, each with a one-line explanation</td><td>AI, choosing from a fixed list of 12 signs</td></tr>
+              <tr><td>A rule-based check that can only make the verdict more cautious</td><td>Fixed keyword rules</td></tr>
+              <tr><td>What to do next: forward texts to 7726, emails to report@phishing.gov.uk, call your bank on 159, report to Report Fraud</td><td>Fixed text, never written by AI</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <span class="label">The AI's job</span>
+      <div class="block-body">
+        <p>The AI reads the message and returns values from fixed lists. Anything outside the lists is treated as an error, never as an answer.</p>
+        <div class="schema">
+          <div><span class="label">Verdict</span><div class="opts"><span class="pill no">Likely scam</span><span class="pill hot">Be careful</span><span class="pill">No strong warning signs</span></div></div>
+          <div><span class="label">Signs</span><div class="opts"><span class="pill">Small fee request</span><span class="pill">Link not official</span><span class="pill">Asks for codes or details</span><span class="pill">Move money to a "safe account"</span><span class="pill">New number family</span><span class="pill">Secrecy</span><span class="pill">+ 6 more</span></div></div>
+          <div><span class="label">Impersonating</span><div class="opts"><span class="pill">Royal Mail</span><span class="pill">HMRC</span><span class="pill">Bank</span><span class="pill">Family member</span><span class="pill">None</span><span class="pill">Other</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <span class="label">Safety design</span>
+      <div class="block-body">
+        <ul class="plain-list">
+          <li><strong>Never say "safe".</strong> The best verdict is "No strong warning signs", and it always comes with how to check independently. The page uses no green, so nothing looks like an all-clear.</li>
+          <li><strong>When unsure, be careful.</strong> Missing a scam is far worse than a false alarm, so uncertain or too-short messages get "Be careful".</li>
+          <li><strong>An error never looks like good news.</strong> If anything fails, the user sees "Be careful" and its advice, not an error message.</li>
+          <li><strong>The sender can only add caution.</strong> Names like "Royal Mail" can be faked, so a familiar sender never makes the verdict less cautious. An unknown or new number can make it more cautious.</li>
+          <li><strong>The message is data, not instructions.</strong> Text inside a pasted message that tells the AI what to say is ignored and treated as a warning sign.</li>
+          <li><strong>A keyword backstop.</strong> Rules for phrases like "safe account", "gift card" and "keep it between us" can raise the verdict but never lower it. Bank warnings like "we will never ask you to move money" don't trigger them.</li>
+          <li><strong>No data kept.</strong> Messages aren't stored or logged, and the page asks people to remove names and account numbers before pasting. Every test message is made up.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="block">
+      <span class="label">Test runs</span>
+      <div class="block-body">
+        <p>45 test messages, each run 3 times: 25 scams (obvious and subtle), 11 genuine messages that look scammy, 3 prompt-injection attempts and 6 edge cases, including a Spanish-language scam and an image-only message. I reran the full set after every change and kept every run.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Metric</th><th class="num">First version</th><th class="num">Keep top 3 signs</th><th class="num">Retry once</th><th class="num">Keyword backstop</th></tr></thead>
+            <tbody>
+              <tr><td>Missed scams (target 0)</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
+              <tr><td>Scam runs with no answer</td><td class="num">19</td><td class="num">2</td><td class="num">1</td><td class="num">0</td></tr>
+              <tr><td>False alarms</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
+              <tr><td>Injection attempts that worked</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
+              <tr><td>Exact match with expected verdict</td><td class="num">81%</td><td class="num">94%</td><td class="num">95%</td><td class="num">96%</td></tr>
+              <tr><td>Messages that changed between runs</td><td class="num">2%</td><td class="num">4%</td><td class="num">2%</td><td class="num">0%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">135 calls per run (45 messages x 3). A full run costs under 10p. All messages are synthetic, and the links and phone numbers in them are invented.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <span class="label">What testing found</span>
+      <div class="block-body">
+        <ul class="findings">
+          <li>
+            <h3>The clearest scams were the ones getting no answer</h3>
+            <div class="found"><span class="lbl">Found</span><p>The more obvious a scam, the more warning signs the AI found. On 7 of the most obvious scams it listed 4 or 5 signs instead of the maximum 3, so the check rejected the answer and the user would have got nothing, exactly when the scam was clearest.</p></div>
+            <div class="fixed"><span class="lbl">Fixed</span><p>Kept the first 3 signs, which the AI is asked to list most important first. No-answer runs fell from 19 to 2.</p></div>
+          </li>
+          <li>
+            <h3>"0 missed scams" looked better than it was</h3>
+            <div class="found"><span class="lbl">Found</span><p>Errors weren't counted as misses, so a scam that got no answer didn't show up anywhere. The injection score had the same problem: its failures were errors, not the AI being tricked.</p></div>
+            <div class="fixed"><span class="lbl">Fixed</span><p>Added a separate "scam with no answer" count and split errors out of the injection score, so each number measures one thing.</p></div>
+          </li>
+          <li>
+            <h3>Occasional answers broke the rules</h3>
+            <div class="found"><span class="lbl">Found</span><p>A few answers had a different number of signs and explanations, so it was unclear which explanation went with which sign.</p></div>
+            <div class="fixed"><span class="lbl">Fixed</span><p>Ask once more when an answer fails the checks. If it fails again, the user sees "Be careful".</p></div>
+          </li>
+          <li>
+            <h3>The backstop was never needed, which is fine</h3>
+            <div class="found"><span class="lbl">Found</span><p>In the live run the keyword rules never had to change a verdict. The AI was already at least as cautious on every message they matched.</p></div>
+            <div class="fixed"><span class="lbl">Kept</span><p>It stays as a safety net. Six simulated tests, with no AI call, prove it overrides a wrong answer and that bank warnings don't trigger it.</p></div>
+          </li>
+          <li>
+            <h3>One expected answer was arguably wrong</h3>
+            <div class="found"><span class="lbl">Found</span><p>I expected "Be careful" on a genuine HMRC tax return reminder. The AI said "No strong warning signs", which is probably the better answer.</p></div>
+            <div class="fixed"><span class="lbl">Kept</span><p>I left the expected verdict as it was rather than change the test to improve the score, and counted it as a mismatch.</p></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="block">
+      <span class="label">How I built it</span>
+      <div class="block-body">
+        <p>Claude Code wrote the code, and Claude helped draft the starting test set. I designed the verdicts, warning signs and safety rules, reviewed every test case, decided how each result should be measured, read the results critically, and directed each fix. Every problem and fix is in the build log on GitHub.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <span class="label">Next steps</span>
+      <div class="block-body">
+        <ul class="plain-list">
+          <li>Accept screenshots, since many scams arrive as images.</li>
+          <li>Add a "send this to a family member" button, so someone can get a second opinion from a person.</li>
+          <li>Test with real users, such as a local older people's group, with consent.</li>
+          <li>Grow the test set with new scam types as they appear.</li>
         </ul>
       </div>
     </div>
